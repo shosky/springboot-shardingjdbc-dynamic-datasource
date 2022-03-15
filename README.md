@@ -1,0 +1,2 @@
+# springboot-shardingjdbc-dynamic-datasource
+Springboot集成ShardingJDBC实现动态数据源切换
