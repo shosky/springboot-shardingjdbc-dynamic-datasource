@@ -7,14 +7,14 @@ leo:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://localhost:3306/order_db
-        username: lerke
-        password: hello1234
+        username: root
+        password: 
       baseinfo_db:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://localhost:3306/baseinfo_db
-        username: lerke
-        password: hello1234
+        username: root
+        password: 
     defaultGroup: order_db
     enabled: true
 #sharding-jdbc
@@ -25,26 +25,26 @@ sharding:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://localhost:3306/trade0
-        username: lerke
-        password: hello1234
+        username: root
+        password: 
       trade1:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://localhost:3306/trade1
-        username: lerke
-        password: hello1234
+        username: root
+        password: 
       trade2:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://localhost:3306/trade2
-        username: lerke
-        password: hello1234
+        username: root
+        password: 
       trade3:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
         url: jdbc:mysql://localhost:3306/trade3
-        username: lerke
-        password: hello1234
+        username: root
+        password: 
 mybatis:
   configuration:
     map-underscore-to-camel-case: true

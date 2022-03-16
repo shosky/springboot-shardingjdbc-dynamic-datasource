@@ -39,6 +39,10 @@ public class OrderDataSourceConfig {
     @Value("${order.jdbc.driver-class-name}")
     private String driverClass;
 
+    /**
+     * 生产数据源
+     * @return
+     */
     @Bean(name = "orderJdbcDataSource")
     @Primary
     public DataSource masterDataSource() {
@@ -50,12 +54,22 @@ public class OrderDataSourceConfig {
         return dataSource;
     }
 
+    /**
+     * 将数据源加入Spring事务管理器
+     * @return
+     */
     @Bean(name = "orderTransactionManager")
     @Primary
     public DataSourceTransactionManager orderTransactionManager() {
         return new DataSourceTransactionManager(masterDataSource());
     }
 
+    /**
+     * 给MyBaits的SqlSessionFactoryy注入自定义的DataSource
+     * @param masterDataSource
+     * @return
+     * @throws Exception
+     */
     @Bean(name = "orderJdbcSqlSessionFactory")
     @Primary
     public SqlSessionFactory jdbcSqlSessionFactory(@Qualifier("orderJdbcDataSource") DataSource masterDataSource)
