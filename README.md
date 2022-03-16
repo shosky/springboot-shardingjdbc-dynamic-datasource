@@ -7,7 +7,95 @@
 # Springboot集成ShardingJDBC实现动态数据源切换
 基本上Java后端开始90%以上都是Springboot开发，本文主要讲解两种动态数据源切换方案。
 
-## 基于Package包隔离方案
+## 1. 基于AbstractRoutingDataSource利用注解动态切换数据源
+
+```yaml
+#single-database
+leo:
+  datasource:
+    group:
+      order_db:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/order_db
+        username: root
+        password: 
+      baseinfo_db:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/baseinfo_db
+        username: root
+        password: 
+    defaultGroup: order_db
+    enabled: true
+#sharding-jdbc
+sharding:
+  datasource:
+    group:
+      trade0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/trade0
+        username: root
+        password: 
+      trade1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/trade1
+        username: root
+        password: 
+      trade2:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/trade2
+        username: root
+        password: 
+      trade3:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/trade3
+        username: root
+        password: 
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*.xml
+```
+
+通过`@DS()`注解切换数据源
+```java
+@Component
+public class UserService {
+
+    @Autowired
+    private UserMapper userMapper;
+
+    /**
+    /* 走baseinfo-db数据源
+    **/
+    @DS("baseinfo_db")
+    public List<UserPO> queryByOrgId(String orgId){
+        return userMapper.queryByOrgId(orgId);
+    }
+}
+
+@Component
+public class OrderService {
+
+    @Autowired
+    private OrderMapper orderMapper;
+    
+    /**
+    /* 走ShardingJDBC数据源
+    **/
+    @DS("sharding")
+    public List<OrderPO> queryByOrgId(String orgId) {
+        return orderMapper.queryByOrgId(orgId);
+    }
+}
+```
+
+## 2. 基于Package包隔离方案
 package-dynamic-datasource
 
 `@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})` 取消动态数据源配置
@@ -117,94 +205,6 @@ public class TestOrderDomain {
         for (OrderPO orderPO : orderService.queryByOrgId("120341123")) {
             log.info(orderPO.getGoodsSubject());
         }
-    }
-}
-```
-
-## 基于AbstractRoutingDataSource利用注解动态切换数据源
-
-```yaml
-#single-database
-leo:
-  datasource:
-    group:
-      order_db:
-        type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/order_db
-        username: root
-        password: 
-      baseinfo_db:
-        type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/baseinfo_db
-        username: root
-        password: 
-    defaultGroup: order_db
-    enabled: true
-#sharding-jdbc
-sharding:
-  datasource:
-    group:
-      trade0:
-        type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/trade0
-        username: root
-        password: 
-      trade1:
-        type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/trade1
-        username: root
-        password: 
-      trade2:
-        type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/trade2
-        username: root
-        password: 
-      trade3:
-        type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/trade3
-        username: root
-        password: 
-mybatis:
-  configuration:
-    map-underscore-to-camel-case: true
-  mapper-locations: classpath:mapper/*.xml
-```
-
-通过`@DS()`注解切换数据源
-```java
-@Component
-public class UserService {
-
-    @Autowired
-    private UserMapper userMapper;
-
-    /**
-    /* 走baseinfo-db数据源
-    **/
-    @DS("baseinfo_db")
-    public List<UserPO> queryByOrgId(String orgId){
-        return userMapper.queryByOrgId(orgId);
-    }
-}
-
-@Component
-public class OrderService {
-
-    @Autowired
-    private OrderMapper orderMapper;
-    
-    /**
-    /* 走ShardingJDBC数据源
-    **/
-    @DS("sharding")
-    public List<OrderPO> queryByOrgId(String orgId) {
-        return orderMapper.queryByOrgId(orgId);
     }
 }
 ```
