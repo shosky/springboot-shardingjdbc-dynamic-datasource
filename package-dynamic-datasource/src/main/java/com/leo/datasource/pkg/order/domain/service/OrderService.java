@@ -1,7 +1,7 @@
-package com.leo.datasource.annotation.order.domain.service;
+package com.leo.datasource.pkg.order.domain.service;
 
-import com.leo.datasource.annotation.order.domain.mapper.OrderMapper;
-import com.leo.datasource.annotation.order.domain.model.OrderPO;
+import com.leo.datasource.pkg.order.domain.mapper.OrderMapper;
+import com.leo.datasource.pkg.order.domain.model.OrderPO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

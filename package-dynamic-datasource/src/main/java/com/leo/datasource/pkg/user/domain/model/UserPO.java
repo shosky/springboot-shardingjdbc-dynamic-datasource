@@ -1,4 +1,4 @@
-package com.leo.datasource.annotation.user.domain.model;
+package com.leo.datasource.pkg.user.domain.model;
 
 import lombok.Data;
 

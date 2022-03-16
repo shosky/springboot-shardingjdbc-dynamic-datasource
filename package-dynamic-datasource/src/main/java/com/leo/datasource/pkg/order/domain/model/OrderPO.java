@@ -1,4 +1,4 @@
-package com.leo.datasource.annotation.order.domain.model;
+package com.leo.datasource.pkg.order.domain.model;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
-package com.leo.datasource.annotation.user.domain.mapper;
+package com.leo.datasource.pkg.user.domain.mapper;
 
-import com.leo.datasource.annotation.user.domain.model.UserPO;
+import com.leo.datasource.pkg.user.domain.model.UserPO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

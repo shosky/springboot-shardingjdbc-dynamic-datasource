@@ -1,8 +1,7 @@
-package com.leo.datasource.annotation.user.domain.service;
+package com.leo.datasource.pkg.user.domain.service;
 
-import com.leo.datasource.annotation.routing.annotation.DS;
-import com.leo.datasource.annotation.user.domain.mapper.UserMapper;
-import com.leo.datasource.annotation.user.domain.model.UserPO;
+import com.leo.datasource.pkg.user.domain.mapper.UserMapper;
+import com.leo.datasource.pkg.user.domain.model.UserPO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,8 +18,7 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    @DS("baseinfo_db")
-    public List<UserPO> queryByOrgId(String orgId){
+    public List<UserPO> queryByOrgId(String orgId) {
         return userMapper.queryByOrgId(orgId);
     }
 }

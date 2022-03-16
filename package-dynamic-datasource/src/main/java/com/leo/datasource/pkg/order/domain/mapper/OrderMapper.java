@@ -1,6 +1,6 @@
-package com.leo.datasource.annotation.order.domain.mapper;
+package com.leo.datasource.pkg.order.domain.mapper;
 
-import com.leo.datasource.annotation.order.domain.model.OrderPO;
+import com.leo.datasource.pkg.order.domain.model.OrderPO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
