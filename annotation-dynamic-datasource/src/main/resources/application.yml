@@ -1,0 +1,51 @@
+
+#single-database
+leo:
+  datasource:
+    group:
+      order_db:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/order_db
+        username: lerke
+        password: hello1234
+      baseinfo_db:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/baseinfo_db
+        username: lerke
+        password: hello1234
+    defaultGroup: order_db
+    enabled: true
+#sharding-jdbc
+sharding:
+  datasource:
+    group:
+      trade0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/trade0
+        username: lerke
+        password: hello1234
+      trade1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/trade1
+        username: lerke
+        password: hello1234
+      trade2:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/trade2
+        username: lerke
+        password: hello1234
+      trade3:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/trade3
+        username: lerke
+        password: hello1234
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*.xml
